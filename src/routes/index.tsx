@@ -1,24 +1,85 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Nav } from "@/components/site/Nav";
+import { Hero } from "@/components/site/Hero";
+import { About } from "@/components/site/About";
+import { Experience } from "@/components/site/Experience";
+import { Skills } from "@/components/site/Skills";
+import { Work } from "@/components/site/Work";
+import { Education } from "@/components/site/Education";
+import { Creative } from "@/components/site/Creative";
+import { Contact } from "@/components/site/Contact";
+import { Footer } from "@/components/site/Footer";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const TITLE = "Asnif Ahamath | Management & IT · Digital Marketing";
+const DESCRIPTION =
+  "Portfolio of Asnif Ahamath — Management and Information Technology undergraduate, NVQ Level 3 ICT technician and Marketing Manager at Innovibyte, Sri Lanka. Digital marketing, IT and creative media.";
+
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESCRIPTION },
+      { property: "og:type", content: "profile" },
+      { property: "og:url", content: "/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESCRIPTION },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Asnif Ahamath",
+          alternateName: "Japeer Asnif Ahamath",
+          jobTitle: "Marketing Manager",
+          email: "mailto:asnifmj@gmail.com",
+          address: { "@type": "PostalAddress", addressCountry: "LK", addressLocality: "Trincomalee" },
+          worksFor: { "@type": "Organization", name: "Innovibyte Private Limited", url: "https://innovibyte.com/" },
+          alumniOf: [
+            { "@type": "CollegeOrUniversity", name: "South Eastern University of Sri Lanka" },
+            { "@type": "EducationalOrganization", name: "SLIATE — ATI Sammanthurai" },
+          ],
+          knowsAbout: [
+            "Digital Marketing",
+            "Information Technology",
+            "Management",
+            "Video Editing",
+            "Graphic Design",
+            "Content Strategy",
+          ],
+        }),
+      },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-dvh bg-background">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-primary-foreground"
+      >
+        Skip to content
+      </a>
+      <Nav />
+      <main id="main">
+        <Hero />
+        <About />
+        <Experience />
+        <Skills />
+        <Work />
+        <Education />
+        <Creative />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   );
 }
